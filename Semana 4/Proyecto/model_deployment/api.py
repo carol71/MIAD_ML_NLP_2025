@@ -2,43 +2,53 @@
 from flask import Flask
 from flask_restx import Api, Resource, fields
 import joblib
-from m09_model_deployment import predict_proba
+from m09_model_deployment import predict
 
 app = Flask(__name__)
 
 api = Api(
     app, 
     version='1.0', 
-    title='Phishing Prediction API',
-    description='Phishing Prediction API')
+    title='Popularity Prediction API',
+    description='Popularity Prediction API')
 
 ns = api.namespace('predict', 
-     description='Phishing Classifier')
+     description='Popularity Predictor')
    
 parser = api.parser()
 
 parser.add_argument(
-    'URL', 
-    type=str, 
+    'duration_ms', 
+    type=int, 
     required=True, 
-    help='URL to be analyzed', 
+    help='Duración en milisegundos', 
+    location='args')
+
+parser.add_argument(
+    'energy', 
+    type=float, 
+    required=True, 
+    help='Energía de la canción en una escala de 0 a 1', 
     location='args')
 
 resource_fields = api.model('Resource', {
-    'result': fields.String,
+    'result': fields.Float,
 })
 
-
 @ns.route('/')
-class PhishingApi(Resource):
+class PopularityApi(Resource):
 
     @api.doc(parser=parser)
     @api.marshal_with(resource_fields)
     def get(self):
         args = parser.parse_args()
+        duration_ms = args['duration_ms']
+        energy = args['energy']
+        
+        prediction = predict(duration_ms, energy)
         
         return {
-         "result": predict_proba(args['URL'])
+         "result": prediction
         }, 200
     
     
