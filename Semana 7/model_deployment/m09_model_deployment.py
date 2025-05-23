@@ -7,6 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
+nltk.data.path.append('/home/ubuntu/nltk_data')
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
