@@ -7,7 +7,7 @@ from  model_deployment.m09_model_deployment import predict_genres
 app = Flask(__name__)
 api = Api(app, version='1.0', title='Clasificación de géneros de películas', description='Predicción del género de una película dado la sinopsis.')
 
-ns = api.namespace('predict', description='Clasificación de género')
+ns = api.namespace('Predicción', description='Clasificación de género')
 
 parser = api.parser()
 

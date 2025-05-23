@@ -11,16 +11,10 @@ nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
 
-# Carga del modelo y vectorizador
-# model_path = os.path.join(os.path.dirname(__file__), 'modelo.pkl')
-# vectorizer_path = os.path.join(os.path.dirname(__file__), 'vectorizer.pkl')
-# mlb_path = os.path.join(os.path.dirname(__file__), 'generos.pkl')
-
 clf = joblib.load(os.path.join(os.path.dirname(__file__), 'modelo.pkl'))
 vect = joblib.load(os.path.join(os.path.dirname(__file__), 'vectorizer.pkl'))
 mlb = joblib.load(os.path.join(os.path.dirname(__file__), 'generos.pkl'))
 
-# Preprocesamiento con NLTK
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 
