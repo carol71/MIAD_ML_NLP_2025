@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Api, Resource, fields
 import joblib
-from  model_deployment.m09_model_deployment import predict_genres
+from  m09_model_deployment import predict_genres
 
 
 app = Flask(__name__)
